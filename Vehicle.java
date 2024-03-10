@@ -1,4 +1,4 @@
-public class Vehicle {
+public class Vehicle implements Comparable<Vehicle> {
     public String mark;
     public String model;
     public ItemCondition state;
@@ -6,8 +6,9 @@ public class Vehicle {
     public int productionYear;
     public double mileage;
     public double capacity;
+    public int amount;
 
-    public Vehicle(String marka, String mod, ItemCondition st, double cena, int rok, double przebieg, double pojemnosc ){
+    public Vehicle(String marka, String mod, ItemCondition st, double cena, int rok, double przebieg, double pojemnosc, int ilosc){
         this.mark = marka;
         this.model = mod;
         this.state = st;
@@ -15,9 +16,28 @@ public class Vehicle {
         this.productionYear = rok;
         this.mileage = przebieg;
         this.capacity = pojemnosc;
+        this.amount = ilosc;
     }
 
-    public print(){
-        System.out.println("Samochód marki " + this.mark +", model " + this.model);
+    public Vehicle(String mod){
+        this.model = mod;
+    }
+
+    public void print(){
+        System.out.println("Samochód marki " + this.mark +", model " + this.model + ", stan "+this.state+", cena "+ this.price +", rok produkcji "+ this.productionYear + ", przebieg " +this.mileage+ ", pojemnosc "+ this.capacity);
+
+    }
+
+    public String getModel(){
+        return this.model;
+    }
+
+    public int getAmount(){
+        return this.amount;
+    }
+
+    @Override
+    public int compareTo(Vehicle other){
+        return this.mark.compareTo(other.mark);
     }
 }
