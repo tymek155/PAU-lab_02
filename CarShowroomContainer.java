@@ -4,14 +4,21 @@ import java.util.Map;
 import java.util.List;
 
 public class CarShowroomContainer {
-    public Map<String, CarShowroom> showrooms = new HashMap<String, CarShowroom>();
+    public Map<String, CarShowroom> showrooms;
+    public String name;
+    public String location;
 
-    public void addCenter(String nam, int capacity){
+    public CarShowroomContainer(String nazwa1, String lokalizacja1) {
+        this.showrooms= new HashMap<String, CarShowroom>();
+        this.name = nazwa1;
+        this.location = lokalizacja1;
+    }
+
+    public void addCenter(String nam, CarShowroom crsm){
         if (showrooms.containsKey(nam)){
             System.out.println("Salon o podanej nazwie jest juz w bazie!");
         }
         else{
-            CarShowroom crsm = new CarShowroom(nam, capacity);
             showrooms.put(crsm.showroomName, crsm);
             System.out.println("Dodano salon do bazy");
         }
@@ -39,8 +46,7 @@ public class CarShowroomContainer {
 
     public void summary(){
         for(CarShowroom crsm: this.showrooms.values()){
-            double prc = ((double) crsm.currentCapacity() /crsm.maxCapacity)*100;
-            System.out.println("Salono nazwie " + crsm.showroomName +" - zapelnienie " + prc +"%");
+            crsm.print();
         }
     }
 }

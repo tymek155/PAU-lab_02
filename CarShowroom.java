@@ -4,10 +4,13 @@ public class CarShowroom {
     public String showroomName;
     public List<Vehicle> base;
     public int maxCapacity;
+    public String location;
 
-    public CarShowroom(String name, int capacity){
+    public CarShowroom(String name, int capacity, String loc){
         this.showroomName = name;
         this.maxCapacity = capacity;
+        this.location = loc;
+        this.base = new ArrayList<>();
     }
 
     public int currentCapacity(){
@@ -24,10 +27,10 @@ public class CarShowroom {
             for(Vehicle vc : base){
                 if(vc.mark.equals(pojazd.mark) && vc.model.equals(pojazd.model)) {
                     check = true;
+                    vc.amount++;
                     break;
                 }
             }
-            pojazd.amount++;
             if(check == false){
                 this.base.add(pojazd);
             }
@@ -94,6 +97,7 @@ public class CarShowroom {
         for(Vehicle vc: base){
             vc.print();
         }
+        System.out.println();
     }
 
     public List<Vehicle> sortByName(){
@@ -109,5 +113,15 @@ public class CarShowroom {
     public Vehicle max(){
         Comparator<Vehicle> amountComp = Comparator.comparingInt(Vehicle::getAmount);
         return Collections.max(this.base, amountComp);
+    }
+
+    public List<Vehicle> sortByPrice(){
+        Collections.sort(this.base, new PriceComparator());
+        return this.base;
+    }
+
+    public void print(){
+        double prc = ((double) this.currentCapacity() /this.maxCapacity)*100;
+        System.out.println("Salon o nazwie " + this.showroomName + " w lokalizacji " + this.location + " - zapelnienie " + prc +"%");
     }
 }
